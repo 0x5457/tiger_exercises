@@ -300,3 +300,32 @@ digraph C {
 -->
 
 ![c](https://g.gravizo.com/svg?digraph%20G%20%7B%0A%0A%20%20start%5Blabel%3D%20%22%22%2C%20shape%3Dnone%2Cheight%3D.0%2Cwidth%3D.0%5D%0A%20%20%7Bnode%5Bshape%3Dcircle%5D%3B%221%2C5%2C10%2C14%22%3B%222%2C6%2C11%2C15%22%3B%223%2C7%2C12%2C16%22%7D%0A%20%20%7Bnode%5Bshape%3Ddoublecircle%5D%3B%224%2C8%22%3B%2213%2C17%22%3B9%3B18%7D%0A%20%20%20%20%0A%20%20start-%3E%221%2C5%2C10%2C14%22%0A%20%20%221%2C5%2C10%2C14%22-%3E%222%2C6%2C11%2C15%22%5Blabel%3D%22c%22%5D%0A%20%20%222%2C6%2C11%2C15%22-%3E%223%2C7%2C12%2C16%22%5Blabel%3D%22a%22%5D%0A%20%20%223%2C7%2C12%2C16%22-%3E%224%2C8%22%5Blabel%3D%22t%22%5D%0A%20%20%223%2C7%2C12%2C16%22-%3E%2213%2C17%22%5Blabel%3D%22r%22%5D%0A%20%20%224%2C8%22-%3E9%5Blabel%3D%22s%22%5D%0A%20%20%2213%2C17%22-%3E18%5Blabel%3D%22s%22%5D%0A%20%20rankdir%3D%22LR%22%0A%7D)
+
+## 2.6 在下面这个自动机中找出两个等价的状态，并合并它们产生一个识别相同语言且较小的自动机。重复这个过程直到没有等价状态为止。
+`答案：`
+
+s1. {1,2,4,5,6,7,8} {3}
+s2. {1,5,7} {2,4,8} {6} {3}
+s3. {1,5} {7} {2,8} {4,6}
+s4. {1,5} {7} {2,8} {4,6}
+因为 s3==s4 所以终止迭代
+
+<!-- This is the original graph
+digraph G {
+  start[label= "", shape=none,height=.0,width=.0]
+  {node[shape=circle];"1,5";"2,8";7;"4,6"}
+  {node[shape=doublecircle];3}
+  start->"1,5"
+  "1,5"->"2,8"[label="0"]
+  "1,5"->"4,6"[label="1"]
+  "2,8"->7[label="0"]
+  "2,8"->3[label="1"]
+  7->7[label="0"]
+  7->"1,5"[label="1"]c
+  "4,6"->7[label="1"]
+  "4,6"->3[label="0"]
+  rankdir="LR"
+}
+-->
+
+![digraph](https://g.gravizo.com/svg?digraph%20G%20%7B%0A%20%20start%5Blabel%3D%20%22%22%2C%20shape%3Dnone%2Cheight%3D.0%2Cwidth%3D.0%5D%0A%20%20%7Bnode%5Bshape%3Dcircle%5D%3B%221%2C5%22%3B%222%2C8%22%3B7%3B%224%2C6%22%7D%0A%20%20%7Bnode%5Bshape%3Ddoublecircle%5D%3B3%7D%0A%20%20start-%3E%221%2C5%22%0A%20%20%221%2C5%22-%3E%222%2C8%22%5Blabel%3D%220%22%5D%0A%20%20%221%2C5%22-%3E%224%2C6%22%5Blabel%3D%221%22%5D%0A%20%20%222%2C8%22-%3E7%5Blabel%3D%220%22%5D%0A%20%20%222%2C8%22-%3E3%5Blabel%3D%221%22%5D%0A%20%207-%3E7%5Blabel%3D%220%22%5D%0A%20%207-%3E%221%2C5%22%5Blabel%3D%221%22%5D%0A%20%20%224%2C6%22-%3E7%5Blabel%3D%221%22%5D%0A%20%20%224%2C6%22-%3E3%5Blabel%3D%220%22%5D%0A%20%20rankdir%3D%22LR%22%0A%7D)

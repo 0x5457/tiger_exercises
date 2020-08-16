@@ -306,13 +306,10 @@ digraph C {
 ## 2.6 在下面这个自动机中找出两个等价的状态，并合并它们产生一个识别相同语言且较小的自动机。重复这个过程直到没有等价状态为止。
 `答案：`
 
-s1. {1,2,4,5,6,7,8} {3}
-
-s2. {1,5,7} {2,4,8} {6} {3}
-
-s3. {1,5} {7} {2,8} {4,6}
-
-s4. {1,5} {7} {2,8} {4,6}
+- s1 = {{1,2,4,5,6,7,8},{3}}
+- s2 = {{1,5,7},{2,4,8},{6},{3}}
+- s3 = {{1,5},{7},{2,8},{4,6}}
+- s4 = {{1,5},{7},{2,8},{4,6}}
 
 因为 s3==s4 所以终止迭代
 
@@ -352,3 +349,186 @@ digraph G {
 为一个词法分析器生成 edges 和 final 表。
 
 然后给该词法分析器分析字符串 abaabbaba 的每一步。注意，一定要给出此词法分析器重要的内部变量的值，该词法分析器将被反复调用以获得后继的单词。
+
+`答案：`
+
+先通过该题词法规范得出 NFA:
+<!-- This is the original graph
+digraph G {
+  start[label= "", shape=none,height=.0,width=.0]
+  {node[shape=circle];1;2;3;4;5;7;8;9}
+  {node[shape=doublecircle];6;10;11}
+  start->1
+  1->2[label="ε"]
+  1->3[label="ε"]
+  1->4[label="ε"]
+  2->5[label="a"]
+  3->6[label="a|b"]
+  4->7[label="a"]
+  5->8[label="b"]
+  7->9[label="ε"]
+  8->10[label="a"]
+  9->9[label="b"]
+  10->2[label="ε"]
+  9->11[label="a"]
+  
+  rankdir="LR"
+}
+-->
+
+![digraph](https://g.gravizo.com/svg?digraph%20G%20%7B%0A%20%20start%5Blabel%3D%20%22%22%2C%20shape%3Dnone%2Cheight%3D.0%2Cwidth%3D.0%5D%0A%20%20%7Bnode%5Bshape%3Dcircle%5D%3B1%3B2%3B3%3B4%3B5%3B7%3B8%3B9%7D%0A%20%20%7Bnode%5Bshape%3Ddoublecircle%5D%3B6%3B10%3B11%7D%0A%20%20start-%3E1%0A%20%201-%3E2%5Blabel%3D%22%CE%B5%22%5D%0A%20%201-%3E3%5Blabel%3D%22%CE%B5%22%5D%0A%20%201-%3E4%5Blabel%3D%22%CE%B5%22%5D%0A%20%202-%3E5%5Blabel%3D%22a%22%5D%0A%20%203-%3E6%5Blabel%3D%22a%7Cb%22%5D%0A%20%204-%3E7%5Blabel%3D%22a%22%5D%0A%20%205-%3E8%5Blabel%3D%22b%22%5D%0A%20%207-%3E9%5Blabel%3D%22%CE%B5%22%5D%0A%20%208-%3E10%5Blabel%3D%22a%22%5D%0A%20%209-%3E9%5Blabel%3D%22b%22%5D%0A%20%2010-%3E2%5Blabel%3D%22%CE%B5%22%5D%0A%20%209-%3E11%5Blabel%3D%22a%22%5D%0A%20%20%0A%20%20rankdir%3D%22LR%22%0A%7D)
+
+其中
+- ***状态10: 表示 action1***
+- ***状态11: 表示 action2***
+- ***状态6: 表示 action3***
+
+
+再将上面的 NFA 转成 DFA:
+
+<!-- This is the original graph
+digraph G {
+  start[label= "", shape=none,height=.0,width=.0]
+  {node[shape=circle];"1,2,3,4";"8,9";9;5;8;}
+  {node[shape=doublecircle];"5,6,7,9";"2,10,11";11;"2,10";6}
+  start->"1,2,3,4"
+  "1,2,3,4"->"5,6,7,9"[label="a"]
+  "1,2,3,4"->6[label="b"]
+  "5,6,7,9"->11[label="a"]
+  "5,6,7,9"->"8,9"[label="b"]
+  "8,9"->"2,10,11"[label="a"]
+  "8,9"->9[label="b"]
+  "2,10,11"->5[label="a"]
+  5->8[label="b"]
+  8->"2,10"[label="a"]
+  "2,10"->5[label="a"]
+  9->9[label="b"]
+  9->11[label="a"]
+  rankdir="LR"
+}
+-->
+
+![digraph](https://g.gravizo.com/svg?digraph%20G%20%7B%0A%20%20start%5Blabel%3D%20%22%22%2C%20shape%3Dnone%2Cheight%3D.0%2Cwidth%3D.0%5D%0A%20%20%7Bnode%5Bshape%3Dcircle%5D%3B%221%2C2%2C3%2C4%22%3B%228%2C9%22%3B9%3B5%3B8%3B%7D%0A%20%20%7Bnode%5Bshape%3Ddoublecircle%5D%3B%225%2C6%2C7%2C9%22%3B%222%2C10%2C11%22%3B11%3B%222%2C10%22%3B6%7D%0A%20%20start-%3E%221%2C2%2C3%2C4%22%0A%20%20%221%2C2%2C3%2C4%22-%3E%225%2C6%2C7%2C9%22%5Blabel%3D%22a%22%5D%0A%20%20%221%2C2%2C3%2C4%22-%3E6%5Blabel%3D%22b%22%5D%0A%20%20%225%2C6%2C7%2C9%22-%3E11%5Blabel%3D%22a%22%5D%0A%20%20%225%2C6%2C7%2C9%22-%3E%228%2C9%22%5Blabel%3D%22b%22%5D%0A%20%20%228%2C9%22-%3E%222%2C10%2C11%22%5Blabel%3D%22a%22%5D%0A%20%20%228%2C9%22-%3E9%5Blabel%3D%22b%22%5D%0A%20%20%222%2C10%2C11%22-%3E5%5Blabel%3D%22a%22%5D%0A%20%205-%3E8%5Blabel%3D%22b%22%5D%0A%20%208-%3E%222%2C10%22%5Blabel%3D%22a%22%5D%0A%20%20%222%2C10%22-%3E5%5Blabel%3D%22a%22%5D%0A%20%209-%3E9%5Blabel%3D%22b%22%5D%0A%20%209-%3E11%5Blabel%3D%22a%22%5D%0A%20%20%20rankdir%3D%22LR%22%0A%7D)
+
+其中
+- ***状态(5,6,7,9): 表示 action3***
+- ***状态11: 表示 action2***
+- ***状态(2,10,11): 表示 [action1,action2]***
+- ***状态6: 表示 action3***
+- ***状态(2,10): 表示 action1***
+
+ 调整状态序号：
+<!-- This is the original graph
+digraph G {
+  start[label= "", shape=none,height=.0,width=.0]
+  {node[shape=circle];1;4;6;7;9;}
+  {node[shape=doublecircle];2;5;8;10;3}
+  start->1
+  1->2[label="a"]
+  1->3[label="b"]
+  2->8[label="a"]
+  2->4[label="b"]
+  4->5[label="a"]
+  4->6[label="b"]
+  5->7[label="a"]
+  7->9[label="b"]
+  9->10[label="a"]
+  10->7[label="a"]
+  6->6[label="b"]
+  6->8[label="a"]
+  rankdir="LR"
+}
+-->
+
+![digraph](https://g.gravizo.com/svg?digraph%20G%20%7B%0A%20%20start%5Blabel%3D%20%22%22%2C%20shape%3Dnone%2Cheight%3D.0%2Cwidth%3D.0%5D%0A%20%20%7Bnode%5Bshape%3Dcircle%5D%3B1%3B4%3B6%3B7%3B9%3B%7D%0A%20%20%7Bnode%5Bshape%3Ddoublecircle%5D%3B2%3B5%3B8%3B10%3B3%7D%0A%20%20start-%3E1%0A%20%201-%3E2%5Blabel%3D%22a%22%5D%0A%20%201-%3E3%5Blabel%3D%22b%22%5D%0A%20%202-%3E8%5Blabel%3D%22a%22%5D%0A%20%202-%3E4%5Blabel%3D%22b%22%5D%0A%20%204-%3E5%5Blabel%3D%22a%22%5D%0A%20%204-%3E6%5Blabel%3D%22b%22%5D%0A%20%205-%3E7%5Blabel%3D%22a%22%5D%0A%20%207-%3E9%5Blabel%3D%22b%22%5D%0A%20%209-%3E10%5Blabel%3D%22a%22%5D%0A%20%2010-%3E7%5Blabel%3D%22a%22%5D%0A%20%206-%3E6%5Blabel%3D%22b%22%5D%0A%20%206-%3E8%5Blabel%3D%22a%22%5D%0A%20%20rankdir%3D%22LR%22%0A%7D)
+
+
+其中
+- ***状态2: 表示 action3***
+- ***状态8: 表示 action2***
+- ***状态5: 表示 [action1,action2]***
+- ***状态3: 表示 action3***
+- ***状态10: 表示 action1***
+
+最小化此 DFA：
+
+- s1 = {{1,4,6,7,9},{2,3,5,8,10}}
+- s2 = {{1},{4,6},{7},{9},{2},{3,8},{5,10}}
+- s3 = {{1},{4},{6},{7},{9},{2},{3,8},{5,10}}
+- s4 = {{1},{4},{6},{7},{9},{2},{3,8},{5,10}}
+
+因为 s3==s4 所以终止迭代
+
+<!-- This is the original graph
+digraph G {
+  start[label= "", shape=none,height=.0,width=.0]
+  {node[shape=circle];1;4;6;7;9;}
+  {node[shape=doublecircle];2;"5,10";"3,8";"5,10";"3,8"}
+  start->1
+  1->2[label="a"]
+  1->"3,8"[label="b"]
+  2->"3,8"[label="a"]
+  2->4[label="b"]
+  4->"5,10"[label="a"]
+  4->6[label="b"]
+  "5,10"->7[label="a"]
+  7->9[label="b"]
+  9->"5,10"[label="a"]
+  6->6[label="b"]
+  6->"3,8"[label="a"]
+  rankdir="LR"
+}
+-->
+
+![digraph](https://g.gravizo.com/svg?digraph%20G%20%7B%0A%20%20start%5Blabel%3D%20%22%22%2C%20shape%3Dnone%2Cheight%3D.0%2Cwidth%3D.0%5D%0A%20%20%7Bnode%5Bshape%3Dcircle%5D%3B1%3B4%3B6%3B7%3B9%3B%7D%0A%20%20%7Bnode%5Bshape%3Ddoublecircle%5D%3B2%3B%225%2C10%22%3B%223%2C8%22%3B%225%2C10%22%3B%223%2C8%22%7D%0A%20%20start-%3E1%0A%20%201-%3E2%5Blabel%3D%22a%22%5D%0A%20%201-%3E%223%2C8%22%5Blabel%3D%22b%22%5D%0A%20%202-%3E%223%2C8%22%5Blabel%3D%22a%22%5D%0A%20%202-%3E4%5Blabel%3D%22b%22%5D%0A%20%204-%3E%225%2C10%22%5Blabel%3D%22a%22%5D%0A%20%204-%3E6%5Blabel%3D%22b%22%5D%0A%20%20%225%2C10%22-%3E7%5Blabel%3D%22a%22%5D%0A%20%207-%3E9%5Blabel%3D%22b%22%5D%0A%20%209-%3E%225%2C10%22%5Blabel%3D%22a%22%5D%0A%20%206-%3E6%5Blabel%3D%22b%22%5D%0A%20%206-%3E%223%2C8%22%5Blabel%3D%22a%22%5D%0A%20%20rankdir%3D%22LR%22%0A%7D)
+其中
+- ***状态2: 表示 action3***
+- ***状态5,10: 表示 [action1,action2]***
+- ***状态3,8: 表示 [action2,action3]***
+
+ 调整状态序号：
+
+ <!-- This is the original graph
+digraph G {
+  start[label= "", shape=none,height=.0,width=.0]
+  {node[shape=circle];1;3;5;6;8;}
+  {node[shape=doublecircle];2;4;7;4;7}
+  start->1
+  1->2[label="a"]
+  1->7[label="b"]
+  2->7[label="a"]
+  2->3[label="b"]
+  3->4[label="a"]
+  3->5[label="b"]
+  4->6[label="a"]
+  6->8[label="b"]
+  8->4[label="a"]
+  5->5[label="b"]
+  5->7[label="a"]
+  rankdir="LR"
+}
+-->
+
+![digraph](https://g.gravizo.com/svg?digraph%20G%20%7B%0A%20%20start%5Blabel%3D%20%22%22%2C%20shape%3Dnone%2Cheight%3D.0%2Cwidth%3D.0%5D%0A%20%20%7Bnode%5Bshape%3Dcircle%5D%3B1%3B3%3B5%3B6%3B8%3B%7D%0A%20%20%7Bnode%5Bshape%3Ddoublecircle%5D%3B2%3B4%3B7%3B4%3B7%7D%0A%20%20start-%3E1%0A%20%201-%3E2%5Blabel%3D%22a%22%5D%0A%20%201-%3E7%5Blabel%3D%22b%22%5D%0A%20%202-%3E7%5Blabel%3D%22a%22%5D%0A%20%202-%3E3%5Blabel%3D%22b%22%5D%0A%20%203-%3E4%5Blabel%3D%22a%22%5D%0A%20%203-%3E5%5Blabel%3D%22b%22%5D%0A%20%204-%3E6%5Blabel%3D%22a%22%5D%0A%20%206-%3E8%5Blabel%3D%22b%22%5D%0A%20%208-%3E4%5Blabel%3D%22a%22%5D%0A%20%205-%3E5%5Blabel%3D%22b%22%5D%0A%20%205-%3E7%5Blabel%3D%22a%22%5D%0A%20%20rankdir%3D%22LR%22%0A%7D)
+
+- ***状态2: 表示 action3***
+- ***状态4: 表示 [action1,action2]***
+- ***状态7: 表示 [action2,action3]***
+
+由上图得出 edges 表：
+| |a|b|
+|-|-|-|
+|1|2|7|
+|2|7|3|
+|3|4|5|
+|4|6| |
+|5|7|5|
+|6| |8|
+|7| | |
+|8|4| |
+
+
+final 表：
+|1|2|3|4|5|6|7|8|
+|-|-|-|-|-|-|-|-|
+|0|3|0|1,2|0|0|2,3|0|

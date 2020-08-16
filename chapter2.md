@@ -193,17 +193,19 @@ digraph G {
 
 `答案：`
 <!-- This is the original graph
-digraph A {
+digraph G {
    start[label= "", shape=none,height=.0,width=.0]
    {node[shape=circle];"1,2,3,4"}
-   {node[shape=doublecircle];"5,6,7"}
+   {node[shape=doublecircle];"5,6,7";"6,7"}
    start->"1,2,3,4"
-   "1,2,3,4"->"5,6,7"[label="x|y"]
+   "1,2,3,4"->"5,6,7"[label="x"]
+   "1,2,3,4"->"6,7"[label="y"]
    "5,6,7"->"1,2,3,4"[label="z"]
+  
    rankdir="LR"
 }
 -->
-![a](https://g.gravizo.com/svg?digraph%20G%20%7B%0A%20%20%20start%5Blabel%3D%20%22%22%2C%20shape%3Dnone%2Cheight%3D.0%2Cwidth%3D.0%5D%0A%20%20%20%7Bnode%5Bshape%3Dcircle%5D%3B%221%2C2%2C3%2C4%22%7D%0A%20%20%20%7Bnode%5Bshape%3Ddoublecircle%5D%3B%225%2C6%2C7%22%7D%0A%20%20%20start-%3E%221%2C2%2C3%2C4%22%0A%20%20%20%221%2C2%2C3%2C4%22-%3E%225%2C6%2C7%22%5Blabel%3D%22x%7Cy%22%5D%0A%20%20%20%225%2C6%2C7%22-%3E%221%2C2%2C3%2C4%22%5Blabel%3D%22z%22%5D%0A%20%20%20rankdir%3D%22LR%22%0A%7D)
+![digraph](https://g.gravizo.com/svg?digraph%20G%20%7B%0A%20%20%20start%5Blabel%3D%20%22%22%2C%20shape%3Dnone%2Cheight%3D.0%2Cwidth%3D.0%5D%0A%20%20%20%7Bnode%5Bshape%3Dcircle%5D%3B%221%2C2%2C3%2C4%22%7D%0A%20%20%20%7Bnode%5Bshape%3Ddoublecircle%5D%3B%225%2C6%2C7%22%3B%226%2C7%22%7D%0A%20%20%20start-%3E%221%2C2%2C3%2C4%22%0A%20%20%20%221%2C2%2C3%2C4%22-%3E%225%2C6%2C7%22%5Blabel%3D%22x%22%5D%0A%20%20%20%221%2C2%2C3%2C4%22-%3E%226%2C7%22%5Blabel%3D%22y%22%5D%0A%20%20%20%225%2C6%2C7%22-%3E%221%2C2%2C3%2C4%22%5Blabel%3D%22z%22%5D%0A%20%20%0A%20%20%20rankdir%3D%22LR%22%0A%7D)
 
 ### b.
 <!-- This is the original graph

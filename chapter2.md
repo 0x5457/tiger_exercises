@@ -180,7 +180,7 @@ digraph G {
    2->3[label="ε"]
    3->4[label="ε"]
    4->1[label="ε"]
-   1->5[label="ε"]
+   1->5[label="x"]
    5->2[label="z"]
    5->6[label="ε"]
    2->6[label="y"]
@@ -189,7 +189,7 @@ digraph G {
    rankdir="LR";
 }
 -->
-![digraph](https://g.gravizo.com/svg?digraph%20G%20%7B%0A%0A%20%20%20start%5Blabel%3D%20%22%22%2C%20shape%3Dnone%2Cheight%3D.0%2Cwidth%3D.0%5D%0A%20%20%20%7Bnode%5Bshape%3Dcircle%5D%3B1%3B2%3B3%3B4%3B5%3B6%7D%0A%20%20%20%7Bnode%5Bshape%3Ddoublecircle%5D%3B7%7D%0A%20%20%0A%20%20%20start-%3E1%0A%20%20%201-%3E2%5Blabel%3D%22%CE%B5%22%5D%0A%20%20%202-%3E3%5Blabel%3D%22%CE%B5%22%5D%0A%20%20%203-%3E4%5Blabel%3D%22%CE%B5%22%5D%0A%20%20%204-%3E1%5Blabel%3D%22%CE%B5%22%5D%0A%20%20%201-%3E5%5Blabel%3D%22%CE%B5%22%5D%0A%20%20%205-%3E2%5Blabel%3D%22z%22%5D%0A%20%20%205-%3E6%5Blabel%3D%22%CE%B5%22%5D%0A%20%20%202-%3E6%5Blabel%3D%22y%22%5D%0A%20%20%206-%3E7%5Blabel%3D%22%CE%B5%22%5D%0A%20%20%20%0A%20%20%20rankdir%3D%22LR%22%3B%0A%7D%0A)
+![digraph](https://g.gravizo.com/svg?%0Adigraph%20G%20%7B%0A%0A%20%20%20start%5Blabel%3D%20%22%22%2C%20shape%3Dnone%2Cheight%3D.0%2Cwidth%3D.0%5D%0A%20%20%20%7Bnode%5Bshape%3Dcircle%5D%3B1%3B2%3B3%3B4%3B5%3B6%7D%0A%20%20%20%7Bnode%5Bshape%3Ddoublecircle%5D%3B7%7D%0A%20%20%0A%20%20%20start-%3E1%0A%20%20%201-%3E2%5Blabel%3D%22%CE%B5%22%5D%0A%20%20%202-%3E3%5Blabel%3D%22%CE%B5%22%5D%0A%20%20%203-%3E4%5Blabel%3D%22%CE%B5%22%5D%0A%20%20%204-%3E1%5Blabel%3D%22%CE%B5%22%5D%0A%20%20%201-%3E5%5Blabel%3D%22x%22%5D%0A%20%20%205-%3E2%5Blabel%3D%22z%22%5D%0A%20%20%205-%3E6%5Blabel%3D%22%CE%B5%22%5D%0A%20%20%202-%3E6%5Blabel%3D%22y%22%5D%0A%20%20%206-%3E7%5Blabel%3D%22%CE%B5%22%5D%0A%20%20%20%0A%20%20%20rankdir%3D%22LR%22%3B%0A%7D)
 
 `答案：`
 <!-- This is the original graph

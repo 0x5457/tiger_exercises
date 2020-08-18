@@ -481,6 +481,8 @@ digraph G {
 -->
 
 ![digraph](https://g.gravizo.com/svg?digraph%20G%20%7B%0A%20%20start%5Blabel%3D%20%22%22%2C%20shape%3Dnone%2Cheight%3D.0%2Cwidth%3D.0%5D%0A%20%20%7Bnode%5Bshape%3Dcircle%5D%3B1%3B4%3B6%3B7%3B9%3B%7D%0A%20%20%7Bnode%5Bshape%3Ddoublecircle%5D%3B2%3B%225%2C10%22%3B%223%2C8%22%3B%225%2C10%22%3B%223%2C8%22%7D%0A%20%20start-%3E1%0A%20%201-%3E2%5Blabel%3D%22a%22%5D%0A%20%201-%3E%223%2C8%22%5Blabel%3D%22b%22%5D%0A%20%202-%3E%223%2C8%22%5Blabel%3D%22a%22%5D%0A%20%202-%3E4%5Blabel%3D%22b%22%5D%0A%20%204-%3E%225%2C10%22%5Blabel%3D%22a%22%5D%0A%20%204-%3E6%5Blabel%3D%22b%22%5D%0A%20%20%225%2C10%22-%3E7%5Blabel%3D%22a%22%5D%0A%20%207-%3E9%5Blabel%3D%22b%22%5D%0A%20%209-%3E%225%2C10%22%5Blabel%3D%22a%22%5D%0A%20%206-%3E6%5Blabel%3D%22b%22%5D%0A%20%206-%3E%223%2C8%22%5Blabel%3D%22a%22%5D%0A%20%20rankdir%3D%22LR%22%0A%7D)
+
+
 其中
 - ***状态2: 表示 action3***
 - ***状态5,10: 表示 [action1,action2]***

@@ -17,30 +17,30 @@ impl ToString for Terminal {
     }
 }
 #[derive(Hash, Eq, PartialEq, Clone, Debug)]
-enum Symbol {
+pub enum Symbol {
     Terminal(Terminal),
     Nonterminal(String),
 }
 
 impl fmt::Display for Symbol {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
             Symbol::Terminal(n) => write!(f, "{}", n.to_string()),
             Symbol::Nonterminal(nt) => write!(f, "{}", nt),
         }
     }
 }
-
-struct Production(Symbol, Vec<Symbol>);
+#[derive(Hash)]
+pub struct Production(pub Symbol, pub Vec<Symbol>);
 
 impl fmt::Display for Production {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let symbols: Vec<String> = self.1.iter().map(|s| s.to_string()).collect();
         writeln!(f, "{} -> {}", self.0.to_string(), symbols.join(" "))
     }
 }
 
-fn first_follow_nullable_set(
+pub fn first_follow_nullable_set(
     productions: Vec<Production>,
 ) -> (
     HashSet<Symbol>,
